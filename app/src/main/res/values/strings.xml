@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ProductShop</string>
+
+    <string name="login.message.email">Correo electrónico</string>
+    <string name="login.message.password">Contraseña</string>
+    <string name="login.message.signin">Iniciar sesión</string>
+    <string name="login.message.signup">Crear cuenta</string>
+    <string name="login.error.message.signin">Imposible iniciar sesión %s</string>
+    <string name="login.error.message.signup">Imposible registrar nuevo usuario %s</string>
+
+</resources>
