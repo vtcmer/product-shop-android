@@ -8,12 +8,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
+import com.product.shop.productshop.lib.ImageLoader;
 
-import edu.galileo.android.facebookrecipes.libs.base.ImageLoader;
 
-/**
- * Created by ykro.
- */
 public class GlideImageLoader implements ImageLoader {
     private RequestManager glideRequestManager;
     private RequestListener onFinishedImageLoadingListener;

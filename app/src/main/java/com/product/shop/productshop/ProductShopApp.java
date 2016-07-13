@@ -9,6 +9,11 @@ import com.product.shop.productshop.login.di.DaggerLoginComponent;
 import com.product.shop.productshop.login.di.LoginComponent;
 import com.product.shop.productshop.login.di.LoginModule;
 import com.product.shop.productshop.login.ui.LoginView;
+import com.product.shop.productshop.productList.di.DaggerProductListComponent;
+import com.product.shop.productshop.productList.di.ProductListComponent;
+import com.product.shop.productshop.productList.di.ProductListModule;
+import com.product.shop.productshop.productList.ui.ProductListActivity;
+import com.product.shop.productshop.productList.ui.ProductListView;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 /**
@@ -53,6 +58,14 @@ public class ProductShopApp extends Application {
                 .loginModule(new LoginModule(view))
                 .libsModule(new LibsModule())
                 .firebaseModule(this.firebaseModule)
+                .build();
+    }
+
+    public ProductListComponent getProductListComponent(ProductListView view, ProductListActivity activity){
+        return DaggerProductListComponent
+                .builder()
+                .productListModule(new ProductListModule(view))
+                .libsModule(new LibsModule(activity))
                 .build();
     }
 

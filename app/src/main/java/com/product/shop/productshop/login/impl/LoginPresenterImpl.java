@@ -82,7 +82,8 @@ public class LoginPresenterImpl implements LoginPresenter {
         if (view != null){
             this.view.hideProgressBar();
             this.view.unlockComponents();
-            this.view.onLoginSuccess();
+            //this.view.onLoginSuccess();
+            this.view.redirectToProductListView();
         }
     }
 

@@ -1,5 +1,6 @@
 package com.product.shop.productshop.login.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.product.shop.productshop.api.producs.ProductResults;
 import com.product.shop.productshop.api.producs.ProductService;
 import com.product.shop.productshop.login.LoginPresenter;
 import com.product.shop.productshop.model.Product;
+import com.product.shop.productshop.productList.ui.ProductListActivity;
 
 import java.util.Random;
 
@@ -61,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
 
         this.presenter.onCreate();
 
-        this.renderProducts();
+       // this.renderProducts();
     }
 
     private void setupInjection() {
@@ -138,6 +140,12 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
         this.inputPassword.setText("");
         final String msgError = String.format(getString(R.string.login_error_message_signup),error);
         this.inputPassword.setError(msgError);
+    }
+
+    @Override
+    public void redirectToProductListView() {
+        Intent intent = new Intent(this, ProductListActivity.class);
+        startActivity(intent);
     }
 
 

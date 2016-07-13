@@ -1,6 +1,12 @@
 package com.product.shop.productshop.lib.di;
 
+import android.app.Activity;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.product.shop.productshop.lib.EventBus;
+import com.product.shop.productshop.lib.ImageLoader;
+import com.product.shop.productshop.lib.impl.GlideImageLoader;
 import com.product.shop.productshop.lib.impl.GreenRobotEventBus;
 
 import javax.inject.Singleton;
@@ -14,7 +20,13 @@ import dagger.Provides;
 @Module
 public class LibsModule {
 
+    private Activity activity;
+
     public LibsModule() {
+    }
+
+    public LibsModule(Activity activity) {
+        this.activity = activity;
     }
 
     @Singleton
@@ -28,5 +40,25 @@ public class LibsModule {
     EventBus providesEventBus(org.greenrobot.eventbus.EventBus eventBus){
         return new GreenRobotEventBus(eventBus);
     }
+
+    @Provides
+    @Singleton
+    Activity provideActivity(){
+        return this.activity;
+    }
+
+    @Provides
+    @Singleton
+    RequestManager providesRequestManager(Activity activity){
+        return Glide.with(activity);
+    }
+
+
+    @Provides
+    @Singleton
+    ImageLoader providesImageLoader(RequestManager requestManager){
+        return new GlideImageLoader(requestManager);
+    }
+
 
 }
