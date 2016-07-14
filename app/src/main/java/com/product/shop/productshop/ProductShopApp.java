@@ -14,6 +14,7 @@ import com.product.shop.productshop.productList.di.ProductListComponent;
 import com.product.shop.productshop.productList.di.ProductListModule;
 import com.product.shop.productshop.productList.ui.ProductListActivity;
 import com.product.shop.productshop.productList.ui.ProductListView;
+import com.product.shop.productshop.productList.ui.adapters.OnItemClickListenerProductList;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 /**
@@ -22,8 +23,12 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 public class ProductShopApp extends Application {
 
     private final static String FIREBASE_URL = "https://products-shop.firebaseio.com/";
+    private final static String SHARED_PREFERENCES_NAME = "UserPrefs";
+    private final static String SHARED_PREFERENCES_FIELD_NAME_USER_ID = "UserId" ;
+    private final static String SHARED_PREFERENCES_FIELD_NAME_EMAIL = "Email" ;
 
     private FirebaseModule firebaseModule;
+    private ProductShopAppModule productShopAppModule;
 
     @Override
     public void onCreate() {
@@ -56,21 +61,24 @@ public class ProductShopApp extends Application {
         return DaggerLoginComponent
                 .builder()
                 .loginModule(new LoginModule(view))
+                .productShopAppModule(this.productShopAppModule)
                 .libsModule(new LibsModule())
                 .firebaseModule(this.firebaseModule)
                 .build();
     }
 
-    public ProductListComponent getProductListComponent(ProductListView view, ProductListActivity activity){
+    public ProductListComponent getProductListComponent(ProductListView view, ProductListActivity activity, OnItemClickListenerProductList onItemClickListenerProductList){
         return DaggerProductListComponent
                 .builder()
-                .productListModule(new ProductListModule(view))
+                .productShopAppModule(this.productShopAppModule)
+                .productListModule(new ProductListModule(view,onItemClickListenerProductList))
                 .libsModule(new LibsModule(activity))
                 .build();
     }
 
 
     private void initModules() {
+        this.productShopAppModule = new ProductShopAppModule(this);
         this.firebaseModule = new FirebaseModule(FIREBASE_URL);
     }
 
@@ -79,5 +87,18 @@ public class ProductShopApp extends Application {
      */
     private void initFirebase() {
         Firebase.setAndroidContext(this);
+    }
+
+
+    public String getSharedPreferentecesName(){
+        return SHARED_PREFERENCES_NAME;
+    }
+
+    public String getSharedPreferentecesFieldUserId(){
+        return SHARED_PREFERENCES_FIELD_NAME_USER_ID;
+    }
+
+    public String getSharedPreferentecesFieldEmail(){
+        return SHARED_PREFERENCES_FIELD_NAME_EMAIL;
     }
 }

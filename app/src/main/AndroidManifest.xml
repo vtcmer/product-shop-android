@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".productList.ui.ProductListActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".productList.ui.ProductListActivity" android:label="Productos disponibles" android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

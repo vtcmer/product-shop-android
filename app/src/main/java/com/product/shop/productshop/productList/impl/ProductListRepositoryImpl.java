@@ -5,8 +5,14 @@ import com.product.shop.productshop.api.producs.ProductResults;
 import com.product.shop.productshop.api.producs.ProductService;
 import com.product.shop.productshop.lib.EventBus;
 import com.product.shop.productshop.model.Product;
+import com.product.shop.productshop.model.User;
 import com.product.shop.productshop.productList.ProductListRepository;
+import com.product.shop.productshop.productList.entities.UserProduct;
+import com.product.shop.productshop.productList.entities.UserProduct_Table;
 import com.product.shop.productshop.productList.events.ProductListEvent;
+import com.raizlabs.android.dbflow.list.FlowCursorList;
+import com.raizlabs.android.dbflow.sql.language.Condition;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -48,7 +54,7 @@ public class ProductListRepositoryImpl implements ProductListRepository {
                     if (results.getCount() > 0) {
                         for (Product product : results.getProducts()) {
 
-                            double price = new Random().nextDouble() * 100;
+                            double price = new Random().nextInt(1000);
 
                             String format = new DecimalFormat("#.##").format(price);
 
@@ -76,10 +82,61 @@ public class ProductListRepositoryImpl implements ProductListRepository {
 
     }
 
+    @Override
+    public void getAllProducts() {
+        FlowCursorList<UserProduct> storedProducts = new FlowCursorList<UserProduct>(false, UserProduct.class);
 
+        List<UserProduct> userProducts = storedProducts.getAll();
+        System.out.println();
+    }
+
+    private UserProduct getProduct(final String userId, final String productId){
+
+        UserProduct userProduct = null;
+
+        List<UserProduct> userProducts = new Select().from(UserProduct.class)
+                                            .where(UserProduct_Table.userId.eq(userId)
+                                                  ,UserProduct_Table.productId.eq(productId))
+                                            .queryList();
+
+        if (userProducts != null && (userProducts.size() > 0)){
+            userProduct = userProducts.get(0);
+        }
+
+        return userProduct;
+    }
+
+
+    @Override
+    public void addProduct(final User user, Product product) {
+
+        UserProduct userProduct =  getProduct(user.getUserId(), product.getProductId());
+        if (userProduct == null) {
+            userProduct = new UserProduct();
+            userProduct.setEmail(user.getEmail());
+            userProduct.setUserId(user.getUserId());
+            userProduct.setProductId(product.getProductId());
+            userProduct.setImageUrl(product.getImageUrl());
+            userProduct.setPrice(product.getPrice());
+            userProduct.setTitle(product.getTitle());
+            userProduct.setUnits(1);
+            userProduct.save();
+        } else {
+            userProduct.setUnits(userProduct.getUnits()+1);
+            userProduct.update();
+        }
+
+        this.getAllProducts();
+        post(ProductListEvent.PRODUCT_ADDED_SUCCESS);
+
+    }
+
+    private void post(final int type){
+        this.post(type,null);
+    }
 
     private void post(final int type,final String msg){
-        this.post(type,msg);
+        this.post(type,null,msg);
     }
 
     private void post(final List<Product> products){

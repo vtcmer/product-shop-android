@@ -12,6 +12,9 @@ public class ProductListEvent {
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
 
+    public static final int PRODUCT_ADDED_SUCCESS = 2;
+    public static final int PRODUCT_ADDED_ERROR = 3;
+
     private int type;
     private String  msg;
     private List<Product> products;

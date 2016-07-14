@@ -6,6 +6,7 @@ import com.product.shop.productshop.api.firebase.callback.FirebaseActionListener
 import com.product.shop.productshop.lib.EventBus;
 import com.product.shop.productshop.login.LoginRepository;
 import com.product.shop.productshop.login.events.LoginEvent;
+import com.product.shop.productshop.model.User;
 
 /**
  * Created by vtcmer on 11/07/2016.
@@ -26,7 +27,8 @@ public class LoginRepositoryImpl implements LoginRepository {
         this.firebaseApi.signIn(email, password, new FirebaseActionListenerCallback() {
             @Override
             public void onSuccess() {
-                post(LoginEvent.LOGIN_SUCCESS);
+                User user = firebaseApi.getAuthUser();
+                post(LoginEvent.LOGIN_SUCCESS, user);
             }
 
             @Override
@@ -54,14 +56,24 @@ public class LoginRepositoryImpl implements LoginRepository {
 
     }
 
+
     private void post(final int type){
-        this.post(type,null);
+        this.post(type,null,null);
+    }
+
+    private void post(final int type, final User user){
+        this.post(type,null,user);
     }
 
     private void post(final int type, final String msg){
+        this.post(type,msg,null);
+    }
+
+    private void post(final int type, final String msg, final User user){
         LoginEvent event = new LoginEvent();
         event.setType(type);
         event.setMsg(msg);
+        event.setUser(user);
 
         this.eventBus.post(event);
 

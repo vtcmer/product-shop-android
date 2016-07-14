@@ -23,40 +23,35 @@
         android:layout_below="@+id/imgProduct"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:layout_weight="1"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:id="@+id/txtPrice"
-        android:layout_below="@+id/txtProductName"
-        android:layout_centerHorizontal="true" />
+
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPrice"
+        android:layout_below="@+id/txtProductName"
         android:id="@+id/layoutButtons"
         android:layout_centerHorizontal="true">
-        <ImageButton
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/btn_star_big_off"
-            android:padding="@dimen/row_icons_padding"
-            android:background="@android:color/transparent"
-            android:id="@+id/imgFav" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:id="@+id/txtPrice"
+            android:layout_below="@+id/txtProductName"
+             />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_delete"
+            android:src="@android:drawable/ic_input_add"
             android:padding="@dimen/row_icons_padding"
-            android:tint="@android:color/darker_gray"
             android:background="@android:color/transparent"
-            android:id="@+id/imgDelete" />
+            android:id="@+id/btnAddProduct" />
+
+
 
     </LinearLayout>
 

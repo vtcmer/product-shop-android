@@ -5,6 +5,7 @@ import com.product.shop.productshop.login.LoginInteractor;
 import com.product.shop.productshop.login.LoginPresenter;
 import com.product.shop.productshop.login.events.LoginEvent;
 import com.product.shop.productshop.login.ui.LoginView;
+import com.product.shop.productshop.model.User;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -63,7 +64,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
         switch (event.getType()){
             case LoginEvent.LOGIN_SUCCESS:
-                this.onLoginSuccess();
+                this.onLoginSuccess(event.getUser());
                 break;
             case LoginEvent.LOGIN_FAIL:
                 this.onLoginFail(msg);
@@ -78,11 +79,11 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     }
 
-    private void onLoginSuccess(){
+    private void onLoginSuccess(final User user){
         if (view != null){
             this.view.hideProgressBar();
             this.view.unlockComponents();
-            //this.view.onLoginSuccess();
+            this.view.onLoginSuccess(user);
             this.view.redirectToProductListView();
         }
     }

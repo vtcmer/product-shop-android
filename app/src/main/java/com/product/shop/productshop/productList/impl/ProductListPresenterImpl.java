@@ -2,6 +2,7 @@ package com.product.shop.productshop.productList.impl;
 
 import com.product.shop.productshop.lib.EventBus;
 import com.product.shop.productshop.model.Product;
+import com.product.shop.productshop.model.User;
 import com.product.shop.productshop.productList.ProductListInteractor;
 import com.product.shop.productshop.productList.ProductListPresenter;
 import com.product.shop.productshop.productList.events.ProductListEvent;
@@ -46,6 +47,11 @@ public class ProductListPresenterImpl implements ProductListPresenter {
     }
 
     @Override
+    public void addProduct(User user, Product product) {
+        this.interactor.addProduct(user,product);
+    }
+
+    @Override
     @Subscribe
     public void onEventMainThread(ProductListEvent event) {
 
@@ -56,6 +62,9 @@ public class ProductListPresenterImpl implements ProductListPresenter {
                 break;
             case ProductListEvent.ERROR:
                 onError(event.getMsg());
+                break;
+            case ProductListEvent.PRODUCT_ADDED_SUCCESS:
+                onProductAddedSuccess();
                 break;
         }
 
@@ -72,6 +81,13 @@ public class ProductListPresenterImpl implements ProductListPresenter {
     private void onError(final String msg){
         if (view != null){
             this.view.hideProgressBar();
+        }
+    }
+
+
+    private void onProductAddedSuccess(){
+        if (view != null){
+            this.view.onProductAddSuccess();
         }
     }
 }

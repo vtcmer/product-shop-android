@@ -1,5 +1,7 @@
 package com.product.shop.productshop.login.events;
 
+import com.product.shop.productshop.model.User;
+
 /**
  * Created by vtcmer on 10/07/2016.
  */
@@ -12,6 +14,7 @@ public class LoginEvent {
 
     private int type;
     private String msg;
+    private User user;
 
     public int getType() {
         return type;
@@ -27,5 +30,13 @@ public class LoginEvent {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

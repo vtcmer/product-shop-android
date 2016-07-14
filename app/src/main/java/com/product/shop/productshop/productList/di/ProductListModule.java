@@ -12,6 +12,7 @@ import com.product.shop.productshop.productList.impl.ProductListInteractorImpl;
 import com.product.shop.productshop.productList.impl.ProductListPresenterImpl;
 import com.product.shop.productshop.productList.impl.ProductListRepositoryImpl;
 import com.product.shop.productshop.productList.ui.ProductListView;
+import com.product.shop.productshop.productList.ui.adapters.OnItemClickListenerProductList;
 import com.product.shop.productshop.productList.ui.adapters.ProductListAdapter;
 
 import java.util.ArrayList;
@@ -29,15 +30,24 @@ import dagger.Provides;
 public class ProductListModule {
 
     private ProductListView view;
+    private OnItemClickListenerProductList onItemClickListenerProductList;
 
-    public ProductListModule(ProductListView view) {
+    public ProductListModule(ProductListView view, OnItemClickListenerProductList onItemClickListenerProductList) {
         this.view = view;
+        this.onItemClickListenerProductList = onItemClickListenerProductList;
     }
 
     @Singleton
     @Provides
     ProductListView providesProductListView(){
         return this.view;
+    }
+
+
+    @Singleton
+    @Provides
+    OnItemClickListenerProductList providesOnItemClickListenerProductList(){
+        return this.onItemClickListenerProductList;
     }
 
     @Singleton
@@ -67,8 +77,8 @@ public class ProductListModule {
 
     @Singleton
     @Provides
-    ProductListAdapter providesProductListAdapter(List<Product> products, ImageLoader imageLoader){
-        return new ProductListAdapter(products,imageLoader);
+    ProductListAdapter providesProductListAdapter(List<Product> products, ImageLoader imageLoader, OnItemClickListenerProductList onItemClickListenerProductList){
+        return new ProductListAdapter(products,imageLoader,onItemClickListenerProductList);
     }
 
 

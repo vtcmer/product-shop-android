@@ -1,6 +1,8 @@
 package com.product.shop.productshop.login.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +18,10 @@ import com.product.shop.productshop.R;
 import com.product.shop.productshop.api.producs.ProductClient;
 import com.product.shop.productshop.api.producs.ProductResults;
 import com.product.shop.productshop.api.producs.ProductService;
+import com.product.shop.productshop.lib.UserService;
 import com.product.shop.productshop.login.LoginPresenter;
 import com.product.shop.productshop.model.Product;
+import com.product.shop.productshop.model.User;
 import com.product.shop.productshop.productList.ui.ProductListActivity;
 
 import java.util.Random;
@@ -48,6 +52,9 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
 
     @Inject
     LoginPresenter presenter;
+
+    @Inject
+    UserService userService;
 
     ProductShopApp app;
 
@@ -115,7 +122,9 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void onLoginSuccess(final User user) {
+
+        userService.setUserAuth(user);
         String msg = "Usuario Autenticado "+this.inputEmail.getText();
         Snackbar.make(this.container,msg, Snackbar.LENGTH_LONG).show();
     }

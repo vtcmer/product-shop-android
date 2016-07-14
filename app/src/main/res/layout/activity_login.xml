@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/login.message.email"
             android:inputType="textEmailAddress"
+            android:text="vm@email.com"
             android:id="@+id/editTxtEmail" />
     </android.support.design.widget.TextInputLayout>
 
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/login.message.password"
             android:inputType="textPassword"
+            android:text="123456"
             android:id="@+id/editTxtPassword" />
     </android.support.design.widget.TextInputLayout>
 

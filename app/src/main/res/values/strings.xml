@@ -7,5 +7,9 @@
     <string name="login.message.signup">Crear cuenta</string>
     <string name="login.error.message.signin">Imposible iniciar sesión %s</string>
     <string name="login.error.message.signup">Imposible registrar nuevo usuario %s</string>
+    <string name="product.available">Productos disponibles</string>
+    <string name="my.products">Mis Productos</string>
+    <string name="menu.action.logout">Salir</string>
+
 
 </resources>

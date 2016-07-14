@@ -1,5 +1,7 @@
 package com.product.shop.productshop.productList.impl;
 
+import com.product.shop.productshop.model.Product;
+import com.product.shop.productshop.model.User;
 import com.product.shop.productshop.productList.ProductListInteractor;
 import com.product.shop.productshop.productList.ProductListRepository;
 
@@ -17,5 +19,10 @@ public class ProductListInteractorImpl implements ProductListInteractor {
     @Override
     public void loadProductList() {
         this.repository.loadProductList();
+    }
+
+    @Override
+    public void addProduct(final User user, final Product product) {
+        this.repository.addProduct(user,product);
     }
 }

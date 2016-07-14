@@ -4,6 +4,7 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.product.shop.productshop.api.firebase.callback.FirebaseActionListenerCallback;
+import com.product.shop.productshop.model.User;
 
 import java.util.Map;
 
@@ -63,6 +64,22 @@ public class FirebaseApi {
 
     }
 
+    /**
+     * Recuperación del usuario autenticado
+     * @return
+     */
+    public User getAuthUser(){
+
+        User user = null;
+        if (this.firebase.getAuth()!= null){
+            Map<String, Object> providerData = this.firebase.getAuth().getProviderData();
+            user = new User();
+            user.setEmail(providerData.get("email").toString());
+            user.setUserId(this.firebase.getAuth().getUid());
+        }
+
+        return user;
+    }
 
     /**
      * Logout de la aplicación

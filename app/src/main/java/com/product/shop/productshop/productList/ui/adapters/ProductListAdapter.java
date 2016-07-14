@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,13 +22,15 @@ import butterknife.ButterKnife;
  */
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolderProductList> {
 
+
     private List<Product> products;
     private ImageLoader imageLoader;
+    private OnItemClickListenerProductList onItemClickListenerProductList;
 
-
-    public ProductListAdapter(List<Product> products, ImageLoader imageLoader) {
+    public ProductListAdapter(List<Product> products, ImageLoader imageLoader, OnItemClickListenerProductList onItemClickListenerProductList) {
         this.products = products;
         this.imageLoader = imageLoader;
+        this.onItemClickListenerProductList = onItemClickListenerProductList;
     }
 
     @Override
@@ -42,13 +45,21 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         Product product = this.products.get(position);
 
-        this.imageLoader.load(holder.imgProduct,product.getImageUrl());
-        holder.txtProductName.setText(product.getTitle());
-        holder.txtPrice.setText(String.valueOf(product.getPrice()));
+        this.imageLoader.load(holder.imgProduct, product.getImageUrl());
+
+        int titleSize = 15;
+        if (product.getTitle().length() < titleSize){
+            titleSize = product.getTitle().length();
+        }
+
+        holder.txtProductName.setText(product.getTitle().substring(0,titleSize)+"...");
+        holder.txtPrice.setText(String.valueOf(product.getPrice())+ " €");
+
+        holder.setOnItemClickListener(product, onItemClickListenerProductList);
 
     }
 
-    public void setProducts(List<Product> products){
+    public void setProducts(List<Product> products) {
         this.products = products;
         notifyDataSetChanged();
     }
@@ -67,13 +78,26 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         TextView txtProductName;
         @Bind(R.id.txtPrice)
         TextView txtPrice;
+        @Bind(R.id.btnAddProduct)
+        ImageButton btnAddProduct;
 
         private View view;
 
         public ViewHolderProductList(View itemView) {
             super(itemView);
             this.view = itemView;
-            ButterKnife.bind(this,this.view);
+            ButterKnife.bind(this, this.view);
+        }
+
+        public void setOnItemClickListener(final Product product, final OnItemClickListenerProductList onItemClickListenerProductList) {
+
+            btnAddProduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListenerProductList.onItemClick(product);
+                }
+            });
+
         }
     }
 }

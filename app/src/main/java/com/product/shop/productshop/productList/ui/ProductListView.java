@@ -15,4 +15,8 @@ public interface ProductListView {
 
     void setProducts(final List<Product> products);
 
+    /**
+     * El producto se ha añadido correctamente
+     */
+    void onProductAddSuccess();
 }
