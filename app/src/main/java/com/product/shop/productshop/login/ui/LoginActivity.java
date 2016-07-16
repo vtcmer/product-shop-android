@@ -77,6 +77,8 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
         app.getLoginComponent(this).inject(this);
     }
 
+
+
     @Override
     protected void onDestroy() {
         this.presenter.onDestroy();
@@ -121,13 +123,7 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
         this.toogleComponents(true);
     }
 
-    @Override
-    public void onLoginSuccess(final User user) {
 
-        userService.setUserAuth(user);
-        String msg = "Usuario Autenticado "+this.inputEmail.getText();
-        Snackbar.make(this.container,msg, Snackbar.LENGTH_LONG).show();
-    }
 
     @Override
     public void onLoginError(String error) {

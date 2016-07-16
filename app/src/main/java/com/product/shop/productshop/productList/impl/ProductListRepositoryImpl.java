@@ -83,28 +83,33 @@ public class ProductListRepositoryImpl implements ProductListRepository {
     }
 
     @Override
-    public void getAllProducts() {
-        FlowCursorList<UserProduct> storedProducts = new FlowCursorList<UserProduct>(false, UserProduct.class);
+    public void getAllProducts(final User user) {
 
-        List<UserProduct> userProducts = storedProducts.getAll();
-        System.out.println();
-    }
-
-    private UserProduct getProduct(final String userId, final String productId){
-
-        UserProduct userProduct = null;
+        List<Product> products = new ArrayList<Product>();
 
         List<UserProduct> userProducts = new Select().from(UserProduct.class)
-                                            .where(UserProduct_Table.userId.eq(userId)
-                                                  ,UserProduct_Table.productId.eq(productId))
-                                            .queryList();
+                .where(UserProduct_Table.userId.eq(user.getUserId()))
+                .queryList();
 
-        if (userProducts != null && (userProducts.size() > 0)){
-            userProduct = userProducts.get(0);
+        if (userProducts != null){
+
+            for (UserProduct userProduct: userProducts){
+                Product product = new Product();
+                product.setProductId(userProduct.getProductId());
+                product.setImageUrl(userProduct.getImageUrl());
+                product.setPrice(userProduct.getPrice());
+                product.setTitle(userProduct.getTitle());
+                product.setUnits(userProduct.getUnits());
+                products.add(product);
+
+            }
+
         }
 
-        return userProduct;
+        postProducts(ProductListEvent.PRODUCT_SEARCH_SUCCESS,products);
     }
+
+
 
 
     @Override
@@ -126,9 +131,42 @@ public class ProductListRepositoryImpl implements ProductListRepository {
             userProduct.update();
         }
 
-        this.getAllProducts();
         post(ProductListEvent.PRODUCT_ADDED_SUCCESS);
 
+    }
+
+    @Override
+    public void deleteProduct(User user, Product product) {
+
+        UserProduct userProduct = this.getProduct(user.getUserId(),product.getProductId());
+        if (userProduct != null){
+            userProduct.delete();
+        }
+        post(ProductListEvent.PRODUCT_DELETE_SUCCESS);
+
+    }
+
+
+    /**
+     * Recuperación de un producto en concreto para un usuario
+     * @param userId
+     * @param productId
+     * @return
+     */
+    private UserProduct getProduct(final String userId, final String productId){
+
+        UserProduct userProduct = null;
+
+        List<UserProduct> userProducts = new Select().from(UserProduct.class)
+                .where(UserProduct_Table.userId.eq(userId)
+                        ,UserProduct_Table.productId.eq(productId))
+                .queryList();
+
+        if (userProducts != null && (userProducts.size() > 0)){
+            userProduct = userProducts.get(0);
+        }
+
+        return userProduct;
     }
 
     private void post(final int type){
@@ -137,6 +175,10 @@ public class ProductListRepositoryImpl implements ProductListRepository {
 
     private void post(final int type,final String msg){
         this.post(type,null,msg);
+    }
+
+    private void postProducts(final int type,final List<Product> products){
+        this.post(type,products,null);
     }
 
     private void post(final List<Product> products){

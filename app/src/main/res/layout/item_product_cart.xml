@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="5dp"
+    android:paddingTop="3dp"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutButtons"
+        >
+        <ImageView
+            android:layout_width="@dimen/product_item_image_size_thumb"
+            android:layout_height="@dimen/product_item_image_size_thumb"
+            android:paddingRight="5dp"
+            android:id="@+id/imgProduct"
+            android:src="@mipmap/ic_launcher"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutButtons2"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/layoutButtons3"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:layout_weight="1"
+                android:id="@+id/txtTitle"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:layout_weight="1"
+                android:id="@+id/txtUnit"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:layout_weight="1"
+                android:id="@+id/txtPrice"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    </LinearLayout>

@@ -23,5 +23,7 @@ public interface ProductListPresenter {
      */
     void addProduct(User user, Product product);
 
+
+
     void onEventMainThread(final ProductListEvent event);
 }

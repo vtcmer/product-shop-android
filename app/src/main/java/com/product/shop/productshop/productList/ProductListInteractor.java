@@ -14,4 +14,8 @@ public interface ProductListInteractor {
     void loadProductList();
 
     void addProduct(final User user, final Product product);
+
+    void  getAllProducts(final User user);
+
+    void deleteProduct(final User user, final Product product);
 }

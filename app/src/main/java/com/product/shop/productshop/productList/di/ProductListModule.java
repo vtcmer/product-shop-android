@@ -50,24 +50,6 @@ public class ProductListModule {
         return this.onItemClickListenerProductList;
     }
 
-    @Singleton
-    @Provides
-    ProductListInteractor providesProductListInteractor(ProductListRepository repository){
-        return new ProductListInteractorImpl(repository);
-    }
-
-    @Singleton
-    @Provides
-    ProductListRepository provicesProductListRepository(EventBus eventBus, ProductService productService){
-        return new ProductListRepositoryImpl(eventBus, productService);
-    }
-
-    @Singleton
-    @Provides
-    ProductService providesProductService(){
-        ProductClient client = new ProductClient();
-        return client.getService();
-    }
 
     @Singleton
     @Provides
@@ -81,11 +63,5 @@ public class ProductListModule {
         return new ProductListAdapter(products,imageLoader,onItemClickListenerProductList);
     }
 
-
-    @Singleton
-    @Provides
-    List<Product> providesProductList(){
-        return new ArrayList<Product>();
-    }
 
 }

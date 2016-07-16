@@ -11,5 +11,7 @@
     <string name="my.products">Mis Productos</string>
     <string name="menu.action.logout">Salir</string>
 
+    <string name="product.delete.success">Producto eliminado</string>
+
 
 </resources>

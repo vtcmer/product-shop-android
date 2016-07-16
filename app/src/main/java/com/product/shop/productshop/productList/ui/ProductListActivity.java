@@ -1,5 +1,6 @@
 package com.product.shop.productshop.productList.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import com.product.shop.productshop.R;
 import com.product.shop.productshop.lib.UserService;
 import com.product.shop.productshop.model.Product;
 import com.product.shop.productshop.model.User;
+import com.product.shop.productshop.productCart.ui.ProductCartActivity;
 import com.product.shop.productshop.productList.ProductListPresenter;
 import com.product.shop.productshop.productList.di.ProductListComponent;
 import com.product.shop.productshop.productList.ui.adapters.OnItemClickListenerProductList;
@@ -46,6 +48,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     @Bind(R.id.main_content)
     CoordinatorLayout mainContent;
 
+    ProductShopApp app ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         ButterKnife.bind(this);
 
         this.setupToolBar();
+        app = (ProductShopApp) getApplication();
         this.setupInjection();
         this.setupRecyclerView();
 
@@ -81,9 +85,12 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     }
 
     private void logout() {
+        // TODO FALTA EL LOOGOUT
     }
 
     private void navigateMyProducts() {
+        Intent intent = new Intent(this, ProductCartActivity.class);
+        startActivity(intent);
     }
 
     private void setupRecyclerView() {
@@ -113,7 +120,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
 
     private void setupInjection() {
 
-        ProductShopApp app = (ProductShopApp) getApplication();
+
         ProductListComponent component = app.getProductListComponent(this, this, this);
         this.presenter = component.getProductListPresenter();
         this.adapter = component.getProductListAdapter();

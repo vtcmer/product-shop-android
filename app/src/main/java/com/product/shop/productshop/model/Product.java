@@ -14,6 +14,16 @@ public class Product {
     @SerializedName("image_url")
     private String imageUrl;
 
+    public int getUnits() {
+        return units;
+    }
+
+    public void setUnits(int units) {
+        this.units = units;
+    }
+
+    private int units;
+
     public String getProductId() {
         return productId;
     }

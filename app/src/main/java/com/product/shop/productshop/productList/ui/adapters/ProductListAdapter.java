@@ -1,7 +1,9 @@
 package com.product.shop.productshop.productList.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.product.shop.productshop.R;
 import com.product.shop.productshop.lib.ImageLoader;
 import com.product.shop.productshop.model.Product;
+import com.product.shop.productshop.productCart.ui.SwipeGestureDetector;
 
 import java.util.List;
 
@@ -69,6 +72,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return this.products.size();
     }
 
+
+
     static class ViewHolderProductList extends RecyclerView.ViewHolder {
 
 
@@ -87,6 +92,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             super(itemView);
             this.view = itemView;
             ButterKnife.bind(this, this.view);
+
         }
 
         public void setOnItemClickListener(final Product product, final OnItemClickListenerProductList onItemClickListenerProductList) {

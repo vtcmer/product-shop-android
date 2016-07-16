@@ -28,10 +28,6 @@ public interface LoginView {
     void unlockComponents();
 
 
-    /**
-     * Mensaje confirmación
-     */
-    void onLoginSuccess(final User user);
     void onLoginError(String error);
     void onRegisterSuccess();
     void onRegisterError(String error);

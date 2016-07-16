@@ -18,7 +18,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".productList.ui.ProductListActivity" android:label="Productos disponibles" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".productList.ui.ProductListActivity"
+            android:label="Productos disponibles"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".productCart.ui.ProductCartActivity"
+            android:label="Mis Productos"
+            >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".productList.ui.ProductListActivity"/>
+
+         </activity>
+
     </application>
 
 </manifest>

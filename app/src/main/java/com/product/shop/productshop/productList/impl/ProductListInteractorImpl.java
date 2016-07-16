@@ -25,4 +25,14 @@ public class ProductListInteractorImpl implements ProductListInteractor {
     public void addProduct(final User user, final Product product) {
         this.repository.addProduct(user,product);
     }
+
+    @Override
+    public void getAllProducts(User user) {
+        this.repository.getAllProducts(user);
+    }
+
+    @Override
+    public void deleteProduct(User user, Product product) {
+        this.repository.deleteProduct(user,product);
+    }
 }
