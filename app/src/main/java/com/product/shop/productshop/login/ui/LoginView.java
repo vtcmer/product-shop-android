@@ -28,9 +28,10 @@ public interface LoginView {
     void unlockComponents();
 
 
-    void onLoginError(String error);
+    void onLoginError(final String error);
     void onRegisterSuccess();
-    void onRegisterError(String error);
+    void onRegisterError(final String error);
+    void onLoginSuccess(final User user);
 
     /**
      * Redirección al listado de productos

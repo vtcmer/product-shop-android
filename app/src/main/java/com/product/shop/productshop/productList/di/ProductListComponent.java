@@ -1,6 +1,7 @@
 package com.product.shop.productshop.productList.di;
 
 import com.product.shop.productshop.ProductShopAppModule;
+import com.product.shop.productshop.api.firebase.di.FirebaseModule;
 import com.product.shop.productshop.lib.ImageLoader;
 import com.product.shop.productshop.lib.UserService;
 import com.product.shop.productshop.lib.di.LibsModule;
@@ -16,7 +17,7 @@ import dagger.Component;
  * Created by vtcmer on 12/07/2016.
  */
 @Singleton
-@Component(modules ={ProductListModule.class, LibsModule.class, ProductShopAppModule.class})
+@Component(modules ={ProductListModule.class, LibsModule.class, ProductShopAppModule.class, FirebaseModule.class})
 public interface ProductListComponent {
 
     ProductListPresenter getProductListPresenter();

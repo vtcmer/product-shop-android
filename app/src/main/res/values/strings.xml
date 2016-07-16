@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProductShop</string>
+    <string name="app_name">Tienda Online</string>
 
     <string name="login.message.email">Correo electrónico</string>
     <string name="login.message.password">Contraseña</string>

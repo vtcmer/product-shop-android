@@ -57,7 +57,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
 
         this.imageLoader.load(holder.imgProduct, product.getImageUrl());
 
-        int titleSize = 15;
+        int titleSize = 30;
         if (product.getTitle().length() < titleSize){
             titleSize = product.getTitle().length();
         }

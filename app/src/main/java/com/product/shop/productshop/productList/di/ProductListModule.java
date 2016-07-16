@@ -1,5 +1,6 @@
 package com.product.shop.productshop.productList.di;
 
+import com.product.shop.productshop.api.firebase.FirebaseApi;
 import com.product.shop.productshop.api.producs.ProductClient;
 import com.product.shop.productshop.api.producs.ProductService;
 import com.product.shop.productshop.lib.EventBus;
@@ -8,9 +9,13 @@ import com.product.shop.productshop.model.Product;
 import com.product.shop.productshop.productList.ProductListInteractor;
 import com.product.shop.productshop.productList.ProductListPresenter;
 import com.product.shop.productshop.productList.ProductListRepository;
+import com.product.shop.productshop.productList.SessionInteractor;
+import com.product.shop.productshop.productList.SessionRepository;
 import com.product.shop.productshop.productList.impl.ProductListInteractorImpl;
 import com.product.shop.productshop.productList.impl.ProductListPresenterImpl;
 import com.product.shop.productshop.productList.impl.ProductListRepositoryImpl;
+import com.product.shop.productshop.productList.impl.SessionInteractorImpl;
+import com.product.shop.productshop.productList.impl.SessionRepositoryImpl;
 import com.product.shop.productshop.productList.ui.ProductListView;
 import com.product.shop.productshop.productList.ui.adapters.OnItemClickListenerProductList;
 import com.product.shop.productshop.productList.ui.adapters.ProductListAdapter;
@@ -52,8 +57,8 @@ public class ProductListModule {
 
     @Singleton
     @Provides
-    ProductListPresenter providesProductListPresenter(EventBus eventBus, ProductListView view, ProductListInteractor productListInteractor){
-        return new ProductListPresenterImpl(eventBus, view, productListInteractor);
+    ProductListPresenter providesProductListPresenter(EventBus eventBus, ProductListView view, ProductListInteractor productListInteractor, SessionInteractor sessionInteractor){
+        return new ProductListPresenterImpl(eventBus, view, productListInteractor, sessionInteractor);
     }
 
     @Singleton
@@ -81,6 +86,18 @@ public class ProductListModule {
     ProductService providesProductService(){
         ProductClient client = new ProductClient();
         return client.getService();
+    }
+
+    @Singleton
+    @Provides
+    SessionInteractor providesSessionInteractor(final SessionRepository repository){
+        return new SessionInteractorImpl(repository);
+    }
+
+    @Singleton
+    @Provides
+    SessionRepository providesSessionRepository(final FirebaseApi firebaseApi){
+        return new SessionRepositoryImpl(firebaseApi);
     }
 
 

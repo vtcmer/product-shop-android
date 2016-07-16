@@ -18,10 +18,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "FOOD_API_KEY", project.property('FOOD_API_KEY')
+            buildConfigField "String", "FIREBASE_URL", project.property('FIREBASE_URL')
         }
 
         debug {
             buildConfigField "String", "FOOD_API_KEY", project.property('FOOD_API_KEY')
+            buildConfigField "String", "FIREBASE_URL", project.property('FIREBASE_URL')
         }
     }
 }

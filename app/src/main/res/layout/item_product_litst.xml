@@ -19,6 +19,7 @@
         android:text="Medium Text"
         android:layout_weight="1"
         android:padding="@dimen/activity_horizontal_margin"
+        style="@style/textBold"
         android:id="@+id/txtProductName"
         android:layout_below="@+id/imgProduct"
         android:layout_centerHorizontal="true" />
@@ -39,6 +40,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:padding="@dimen/activity_horizontal_margin"
+            style="@style/textNormal"
             android:id="@+id/txtPrice"
             android:layout_below="@+id/txtProductName"
              />

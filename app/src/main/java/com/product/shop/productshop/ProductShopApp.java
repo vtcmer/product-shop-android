@@ -28,7 +28,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
  */
 public class ProductShopApp extends Application {
 
-    private final static String FIREBASE_URL = "https://products-shop.firebaseio.com/";
+    private final static String FIREBASE_URL = BuildConfig.FIREBASE_URL ;
     private final static String SHARED_PREFERENCES_NAME = "UserPrefs";
     private final static String SHARED_PREFERENCES_FIELD_NAME_USER_ID = "UserId" ;
     private final static String SHARED_PREFERENCES_FIELD_NAME_EMAIL = "Email" ;
@@ -79,6 +79,7 @@ public class ProductShopApp extends Application {
                 .productShopAppModule(this.productShopAppModule)
                 .productListModule(new ProductListModule(view,onItemClickListenerProductList))
                 .libsModule(new LibsModule(activity))
+                .firebaseModule(this.firebaseModule)
                 .build();
     }
 

@@ -18,6 +18,10 @@ public class UserService {
         this.app = app;
     }
 
+    /**
+     * Recuperar la información del usuario autenticado
+     * @return
+     */
     public User getUserAuth(){
         User user = new User();
         user.setUserId(this.sharedPreferences.getString(app.getSharedPreferentecesFieldUserId(),null));
@@ -25,6 +29,10 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Establece en la sesión la información del usuario autenticado
+     * @param user
+     */
     public void setUserAuth(final User user){
 
         SharedPreferences.Editor edit=  this.sharedPreferences.edit();
@@ -34,5 +42,10 @@ public class UserService {
 
     }
 
+    public void unauth(){
+        if (this.sharedPreferences != null){
+            this.sharedPreferences.edit().clear().apply();
+        }
+    }
 
 }

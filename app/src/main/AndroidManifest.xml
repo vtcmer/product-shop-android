@@ -23,7 +23,7 @@
             android:label="Productos disponibles"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".productCart.ui.ProductCartActivity"
-            android:label="Mis Productos"
+            android:label="@string/my.products"
             >
 
             <meta-data

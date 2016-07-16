@@ -70,7 +70,9 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
 
         this.presenter.onCreate();
 
-       // this.renderProducts();
+        this.presenter.checkUserAuth(userService.getUserAuth());
+
+
     }
 
     private void setupInjection() {
@@ -148,6 +150,11 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
     }
 
     @Override
+    public void onLoginSuccess(User user) {
+        this.userService.setUserAuth(user);
+    }
+
+    @Override
     public void redirectToProductListView() {
         Intent intent = new Intent(this, ProductListActivity.class);
         startActivity(intent);
@@ -165,41 +172,6 @@ public class LoginActivity extends AppCompatActivity implements  LoginView{
         this.btnSignup.setEnabled(active);
     }
 
-
-    public void renderProducts(){
-
-        String sort = "recipe_id";
-        int count = 2;
-        int page = 1;
-
-        ProductClient client = new ProductClient();
-        ProductService service = client.getService();
-
-        Call<ProductResults> call = service.search(BuildConfig.FOOD_API_KEY,sort,count,page);
-
-        Callback<ProductResults> callback = new Callback<ProductResults>() {
-            @Override
-            public void onResponse(Call<ProductResults> call, Response<ProductResults> response) {
-                if (response.isSuccess()){
-                    ProductResults results = response.body();
-
-                    for (Product product: results.getProducts()){
-                        product.setPrice(new Random().nextDouble()*100);
-                    }
-                    System.out.println();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProductResults> call, Throwable t) {
-                System.out.println();
-            }
-        };
-
-        call.enqueue(callback);
-
-
-    }
 
 
 }

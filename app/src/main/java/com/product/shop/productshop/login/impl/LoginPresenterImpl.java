@@ -36,6 +36,20 @@ public class LoginPresenterImpl implements LoginPresenter {
     }
 
     @Override
+    public void checkUserAuth(User user) {
+        if ((user != null)
+             && (user.getEmail() != null)
+             && (user.getUserId() != null)){
+            // -- Se considera el usuario autenticado
+            if (view != null){
+                view.showProgressBar();
+                view.lockComponents();
+            }
+            this.onLoginSuccess(user);
+        }
+    }
+
+    @Override
     public void login(String email, String password) {
 
         if (view != null){
@@ -83,6 +97,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         if (view != null){
             this.view.hideProgressBar();
             this.view.unlockComponents();
+            this.view.onLoginSuccess(user);
             this.view.redirectToProductListView();
         }
     }

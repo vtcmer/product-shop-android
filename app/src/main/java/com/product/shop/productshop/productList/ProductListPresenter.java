@@ -23,7 +23,14 @@ public interface ProductListPresenter {
      */
     void addProduct(User user, Product product);
 
+    /**
+     * Se elimina la sessión
+     */
+    void logout();
 
-
+    /**
+     * Captura de los eventos
+     * @param event
+     */
     void onEventMainThread(final ProductListEvent event);
 }

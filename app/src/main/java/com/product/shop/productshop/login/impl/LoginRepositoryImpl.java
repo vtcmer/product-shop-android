@@ -40,12 +40,13 @@ public class LoginRepositoryImpl implements LoginRepository {
     }
 
     @Override
-    public void register(String email, String password) {
+    public void register(final String email, final String password) {
 
         this.firebaseApi.signUp(email, password, new FirebaseActionListenerCallback() {
             @Override
             public void onSuccess() {
-                post(LoginEvent.REGISTER_SUCCESS);
+                //post(LoginEvent.REGISTER_SUCCESS);
+                login(email,password);
             }
 
             @Override

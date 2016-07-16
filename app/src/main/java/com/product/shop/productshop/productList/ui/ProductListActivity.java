@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import com.product.shop.productshop.ProductShopApp;
 import com.product.shop.productshop.R;
 import com.product.shop.productshop.lib.UserService;
+import com.product.shop.productshop.login.ui.LoginActivity;
 import com.product.shop.productshop.model.Product;
 import com.product.shop.productshop.model.User;
 import com.product.shop.productshop.productCart.ui.ProductCartActivity;
@@ -85,7 +86,11 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     }
 
     private void logout() {
-        // TODO FALTA EL LOOGOUT
+        this.presenter.logout();
+        this.userService.unauth();
+        Intent intent  = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void navigateMyProducts() {

@@ -5,6 +5,7 @@ import com.product.shop.productshop.model.Product;
 import com.product.shop.productshop.model.User;
 import com.product.shop.productshop.productList.ProductListInteractor;
 import com.product.shop.productshop.productList.ProductListPresenter;
+import com.product.shop.productshop.productList.SessionInteractor;
 import com.product.shop.productshop.productList.events.ProductListEvent;
 import com.product.shop.productshop.productList.ui.ProductListView;
 
@@ -20,12 +21,14 @@ public class ProductListPresenterImpl implements ProductListPresenter {
     private EventBus eventBus;
     private ProductListView view;
     private ProductListInteractor productListInteractor;
+    private SessionInteractor sessionInteractor;
 
 
-    public ProductListPresenterImpl(EventBus eventBus, ProductListView view, ProductListInteractor productListInteractor) {
+    public ProductListPresenterImpl(EventBus eventBus, ProductListView view, ProductListInteractor productListInteractor, SessionInteractor sessionInteractor) {
         this.eventBus = eventBus;
         this.view = view;
         this.productListInteractor = productListInteractor;
+        this.sessionInteractor = sessionInteractor;
 
     }
 
@@ -51,6 +54,11 @@ public class ProductListPresenterImpl implements ProductListPresenter {
     @Override
     public void addProduct(User user, Product product) {
         this.productListInteractor.addProduct(user,product);
+    }
+
+    @Override
+    public void logout() {
+        this.sessionInteractor.logout();
     }
 
     @Override
