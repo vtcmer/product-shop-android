@@ -13,23 +13,12 @@ public interface ProductListRepository {
      */
     void loadProductList();
 
-
     /**
-     * Recuperación de todos los productos de un usuario
+     * Añadir un producto para un usuario
      * @param user
-     */
-    void getAllProducts(final User user);
-
-    /**
-     * Añade un nuevo producto
      * @param product
      */
     void addProduct(final User user, final Product product);
 
-    /**
-     * Eliminación de un producto para un usuario
-     * @param user
-     * @param product
-     */
-    void deleteProduct(final User user, final Product product);
+
 }

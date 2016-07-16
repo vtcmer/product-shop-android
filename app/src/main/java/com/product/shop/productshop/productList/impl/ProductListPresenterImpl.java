@@ -19,12 +19,14 @@ public class ProductListPresenterImpl implements ProductListPresenter {
 
     private EventBus eventBus;
     private ProductListView view;
-    private ProductListInteractor interactor;
+    private ProductListInteractor productListInteractor;
 
-    public ProductListPresenterImpl(EventBus eventBus, ProductListView view, ProductListInteractor interactor) {
+
+    public ProductListPresenterImpl(EventBus eventBus, ProductListView view, ProductListInteractor productListInteractor) {
         this.eventBus = eventBus;
         this.view = view;
-        this.interactor = interactor;
+        this.productListInteractor = productListInteractor;
+
     }
 
     @Override
@@ -43,12 +45,12 @@ public class ProductListPresenterImpl implements ProductListPresenter {
         if (view != null){
             this.view.showProgressBar();
         }
-        this.interactor.loadProductList();
+        this.productListInteractor.loadProductList();
     }
 
     @Override
     public void addProduct(User user, Product product) {
-        this.interactor.addProduct(user,product);
+        this.productListInteractor.addProduct(user,product);
     }
 
     @Override

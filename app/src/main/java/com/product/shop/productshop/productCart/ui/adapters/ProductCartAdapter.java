@@ -90,6 +90,11 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         notifyDataSetChanged();
     }
 
+    public void removeProduct(final Product product){
+        this.products.remove(product);
+        notifyDataSetChanged();
+    }
+
 
 
     static class ViewHolderProductCart extends RecyclerView.ViewHolder {

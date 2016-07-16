@@ -13,9 +13,11 @@ public interface ProductListInteractor {
      */
     void loadProductList();
 
+    /**
+     * Añadir un producto para un usuario
+     * @param user
+     * @param product
+     */
     void addProduct(final User user, final Product product);
 
-    void  getAllProducts(final User user);
-
-    void deleteProduct(final User user, final Product product);
 }

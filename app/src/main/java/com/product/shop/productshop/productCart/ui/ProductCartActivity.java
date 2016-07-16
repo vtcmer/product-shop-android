@@ -102,14 +102,13 @@ public class ProductCartActivity extends AppCompatActivity implements ProductCar
     }
 
     @Override
-    public void onDeleteProductSuccess() {
+    public void onDeleteProductSuccess(Product product) {
         Snackbar.make(this.mainContent, R.string.product_delete_success, Snackbar.LENGTH_LONG).show();
-        this.presenter.getAllProducts(user);
+        this.adapter.removeProduct(product);
     }
 
     @Override
     public void onSwipeRemove(Product product) {
-        this.showProgressBar();
        this.presenter.deleteProduct(this.user,product);
     }
 }

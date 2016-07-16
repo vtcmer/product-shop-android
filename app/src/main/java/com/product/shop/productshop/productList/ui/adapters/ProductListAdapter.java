@@ -67,6 +67,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         notifyDataSetChanged();
     }
 
+
+
     @Override
     public int getItemCount() {
         return this.products.size();

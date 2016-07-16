@@ -9,7 +9,6 @@ import com.product.shop.productshop.login.di.DaggerLoginComponent;
 import com.product.shop.productshop.login.di.LoginComponent;
 import com.product.shop.productshop.login.di.LoginModule;
 import com.product.shop.productshop.login.ui.LoginView;
-import com.product.shop.productshop.product.di.ProductModule;
 import com.product.shop.productshop.productCart.di.DaggerProductCartComponent;
 import com.product.shop.productshop.productCart.di.ProductCartComponent;
 import com.product.shop.productshop.productCart.di.ProductCartModule;
@@ -79,7 +78,6 @@ public class ProductShopApp extends Application {
                 .builder()
                 .productShopAppModule(this.productShopAppModule)
                 .productListModule(new ProductListModule(view,onItemClickListenerProductList))
-                .productModule(new ProductModule())
                 .libsModule(new LibsModule(activity))
                 .build();
     }
@@ -89,7 +87,6 @@ public class ProductShopApp extends Application {
        return DaggerProductCartComponent
                .builder()
                .productShopAppModule(this.productShopAppModule)
-               .productModule(new ProductModule())
                .productCartModule(new ProductCartModule(view, onItemClickListenerProductCart))
                .libsModule(new LibsModule(activity))
                .build();

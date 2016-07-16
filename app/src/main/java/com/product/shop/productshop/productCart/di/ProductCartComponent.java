@@ -4,7 +4,7 @@ import com.product.shop.productshop.ProductShopAppModule;
 import com.product.shop.productshop.lib.ImageLoader;
 import com.product.shop.productshop.lib.UserService;
 import com.product.shop.productshop.lib.di.LibsModule;
-import com.product.shop.productshop.product.di.ProductModule;
+
 import com.product.shop.productshop.productCart.ProductCartPresenter;
 import com.product.shop.productshop.productCart.ui.adapters.ProductCartAdapter;
 import com.product.shop.productshop.productList.ProductListPresenter;
@@ -19,7 +19,7 @@ import dagger.Component;
  * Created by vtcmer on 14/07/2016.
  */
 @Singleton
-@Component(modules ={ProductCartModule.class,  ProductModule.class, LibsModule.class, ProductShopAppModule.class})
+@Component(modules ={ProductCartModule.class, LibsModule.class, ProductShopAppModule.class})
 public interface ProductCartComponent {
 
     ProductCartPresenter getPresenter();

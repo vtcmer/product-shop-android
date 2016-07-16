@@ -55,4 +55,17 @@ public class Product {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+        if (obj instanceof Product){
+            Product product = (Product)obj;
+            equal = this.productId.equals(product.getProductId());
+        }
+
+        return equal;
+    }
 }

@@ -15,7 +15,6 @@ import com.product.shop.productshop.productList.ui.ProductListView;
 import com.product.shop.productshop.productList.ui.adapters.OnItemClickListenerProductList;
 import com.product.shop.productshop.productList.ui.adapters.ProductListAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -53,8 +52,8 @@ public class ProductListModule {
 
     @Singleton
     @Provides
-    ProductListPresenter providesProductListPresenter(EventBus eventBus, ProductListView view, ProductListInteractor interactor){
-        return new ProductListPresenterImpl(eventBus, view, interactor);
+    ProductListPresenter providesProductListPresenter(EventBus eventBus, ProductListView view, ProductListInteractor productListInteractor){
+        return new ProductListPresenterImpl(eventBus, view, productListInteractor);
     }
 
     @Singleton
@@ -62,6 +61,28 @@ public class ProductListModule {
     ProductListAdapter providesProductListAdapter(List<Product> products, ImageLoader imageLoader, OnItemClickListenerProductList onItemClickListenerProductList){
         return new ProductListAdapter(products,imageLoader,onItemClickListenerProductList);
     }
+
+
+    @Singleton
+    @Provides
+    ProductListInteractor providesProductListInteractor(ProductListRepository repository){
+        return new ProductListInteractorImpl(repository);
+    }
+
+    @Singleton
+    @Provides
+    ProductListRepository provicesProductListRepository(EventBus eventBus, ProductService productService){
+        return new ProductListRepositoryImpl(eventBus, productService);
+    }
+
+
+    @Singleton
+    @Provides
+    ProductService providesProductService(){
+        ProductClient client = new ProductClient();
+        return client.getService();
+    }
+
 
 
 }

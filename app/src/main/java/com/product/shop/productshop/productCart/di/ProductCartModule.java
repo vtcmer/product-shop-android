@@ -5,12 +5,16 @@ import android.content.Context;
 import com.product.shop.productshop.lib.EventBus;
 import com.product.shop.productshop.lib.ImageLoader;
 import com.product.shop.productshop.model.Product;
+import com.product.shop.productshop.product.ProductAbstractRepository;
+import com.product.shop.productshop.productCart.ProductCartInteractor;
 import com.product.shop.productshop.productCart.ProductCartPresenter;
+import com.product.shop.productshop.productCart.ProductCartRepository;
+import com.product.shop.productshop.productCart.impl.ProductCartInteractorImpl;
 import com.product.shop.productshop.productCart.impl.ProductCartPresenterImpl;
+import com.product.shop.productshop.productCart.impl.ProductCartRepositoryImpl;
 import com.product.shop.productshop.productCart.ui.ProductCartView;
 import com.product.shop.productshop.productCart.ui.adapters.OnItemClickListenerProductCart;
 import com.product.shop.productshop.productCart.ui.adapters.ProductCartAdapter;
-import com.product.shop.productshop.productList.ProductListInteractor;
 
 import java.util.List;
 
@@ -49,14 +53,27 @@ public class ProductCartModule {
 
     @Singleton
     @Provides
-    ProductCartPresenter providesProductCartPresenter(EventBus eventBus, ProductCartView view, ProductListInteractor productListInteractor){
-        return new ProductCartPresenterImpl(eventBus,view, productListInteractor);
+    ProductCartPresenter providesProductCartPresenter(EventBus eventBus, ProductCartView view, ProductCartInteractor productCartInteractor){
+        return new ProductCartPresenterImpl(eventBus,view, productCartInteractor);
     }
 
     @Singleton
     @Provides
     ProductCartAdapter providesProductCartAdapter(Context context, List<Product> products, ImageLoader imageLoader, OnItemClickListenerProductCart onItemClickListenerProductCart){
         return new ProductCartAdapter(context, products,imageLoader, onItemClickListenerProductCart);
+    }
+
+
+    @Singleton
+    @Provides
+    ProductCartInteractor providesProductCartInteractor(ProductCartRepository repository){
+        return new ProductCartInteractorImpl(repository);
+    }
+
+    @Singleton
+    @Provides
+    ProductCartRepository provicesProductCartRepository(EventBus eventBus){
+        return new ProductCartRepositoryImpl(eventBus);
     }
 
 

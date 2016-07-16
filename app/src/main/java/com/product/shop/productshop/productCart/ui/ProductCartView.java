@@ -13,7 +13,7 @@ public interface ProductCartView {
     void hideProgressBar();
 
     void setProducts(final List<Product> product);
-    void onDeleteProductSuccess();
+    void onDeleteProductSuccess(final Product product);
 
 
 }

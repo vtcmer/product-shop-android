@@ -1,12 +1,12 @@
 package com.product.shop.productshop.productCart.impl;
 
 import com.product.shop.productshop.lib.EventBus;
-import com.product.shop.productshop.login.events.LoginEvent;
 import com.product.shop.productshop.model.Product;
 import com.product.shop.productshop.model.User;
+import com.product.shop.productshop.productCart.ProductCartInteractor;
 import com.product.shop.productshop.productCart.ProductCartPresenter;
+import com.product.shop.productshop.productCart.events.ProductCartEvent;
 import com.product.shop.productshop.productCart.ui.ProductCartView;
-import com.product.shop.productshop.productList.ProductListInteractor;
 import com.product.shop.productshop.productList.events.ProductListEvent;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -20,12 +20,12 @@ public class ProductCartPresenterImpl implements ProductCartPresenter {
 
     private EventBus eventBus;
     private ProductCartView view;
-    private ProductListInteractor productListInteractor;
+    private ProductCartInteractor productCartInteractor;
 
-    public ProductCartPresenterImpl(EventBus eventBus, ProductCartView view, ProductListInteractor productListInteractor) {
+    public ProductCartPresenterImpl(EventBus eventBus, ProductCartView view, ProductCartInteractor productCartInteractor) {
         this.eventBus = eventBus;
         this.view = view;
-        this.productListInteractor = productListInteractor;
+        this.productCartInteractor = productCartInteractor;
     }
 
     @Override
@@ -44,25 +44,31 @@ public class ProductCartPresenterImpl implements ProductCartPresenter {
         if (this.view != null){
             this.view.showProgressBar();
         }
-        this.productListInteractor.getAllProducts(user);
+        this.productCartInteractor.getAllProducts(user);
     }
 
     @Override
     public void deleteProduct(User user, Product product) {
-        this.productListInteractor.deleteProduct(user, product);
+        this.productCartInteractor.deleteProduct(user, product);
     }
 
 
     @Override
     @Subscribe
-    public void onEventMainThread(ProductListEvent event) {
+    public void onEventMainThread(ProductCartEvent event) {
 
         switch (event.getType()){
-            case ProductListEvent.PRODUCT_SEARCH_SUCCESS:
+            case ProductCartEvent.PRODUCT_SEARCH_SUCCESS:
                 this.onSearchProductsSuccess(event.getProducts());
                 break;
-            case ProductListEvent.PRODUCT_DELETE_SUCCESS:
-                this.onDeleteProductSuccess();
+            case ProductCartEvent.PRODUCT_DELETE_SUCCESS:
+                Product product = null;
+                List<Product> products = event.getProducts();
+                if (!products.isEmpty()){
+                    product = event.getProducts().get(0);
+                }
+
+                this.onDeleteProductSuccess(product);
                 break;
 
         }
@@ -76,9 +82,9 @@ public class ProductCartPresenterImpl implements ProductCartPresenter {
         }
     }
 
-    private void onDeleteProductSuccess(){
+    private void onDeleteProductSuccess(final Product product){
         if (view != null){
-            this.view.onDeleteProductSuccess();
+            this.view.onDeleteProductSuccess(product);
         }
     }
 }

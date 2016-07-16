@@ -6,6 +6,7 @@ import com.product.shop.productshop.api.producs.ProductService;
 import com.product.shop.productshop.lib.EventBus;
 import com.product.shop.productshop.model.Product;
 import com.product.shop.productshop.model.User;
+import com.product.shop.productshop.product.ProductAbstractRepository;
 import com.product.shop.productshop.productList.ProductListRepository;
 import com.product.shop.productshop.productList.entities.UserProduct;
 import com.product.shop.productshop.productList.entities.UserProduct_Table;
@@ -26,7 +27,7 @@ import retrofit2.Response;
 /**
  * Created by vtcmer on 12/07/2016.
  */
-public class ProductListRepositoryImpl implements ProductListRepository {
+public class ProductListRepositoryImpl extends ProductAbstractRepository implements ProductListRepository {
 
     private EventBus eventBus;
     private ProductService productService;
@@ -83,50 +84,15 @@ public class ProductListRepositoryImpl implements ProductListRepository {
     }
 
     @Override
-    public void getAllProducts(final User user) {
-
-        List<Product> products = new ArrayList<Product>();
-
-        List<UserProduct> userProducts = new Select().from(UserProduct.class)
-                .where(UserProduct_Table.userId.eq(user.getUserId()))
-                .queryList();
-
-        if (userProducts != null){
-
-            for (UserProduct userProduct: userProducts){
-                Product product = new Product();
-                product.setProductId(userProduct.getProductId());
-                product.setImageUrl(userProduct.getImageUrl());
-                product.setPrice(userProduct.getPrice());
-                product.setTitle(userProduct.getTitle());
-                product.setUnits(userProduct.getUnits());
-                products.add(product);
-
-            }
-
-        }
-
-        postProducts(ProductListEvent.PRODUCT_SEARCH_SUCCESS,products);
-    }
-
-
-
-
-    @Override
     public void addProduct(final User user, Product product) {
 
         UserProduct userProduct =  getProduct(user.getUserId(), product.getProductId());
         if (userProduct == null) {
-            userProduct = new UserProduct();
-            userProduct.setEmail(user.getEmail());
-            userProduct.setUserId(user.getUserId());
-            userProduct.setProductId(product.getProductId());
-            userProduct.setImageUrl(product.getImageUrl());
-            userProduct.setPrice(product.getPrice());
-            userProduct.setTitle(product.getTitle());
+            userProduct = toUserProduct(user,product);
             userProduct.setUnits(1);
             userProduct.save();
         } else {
+            userProduct.setPrice(product.getPrice());
             userProduct.setUnits(userProduct.getUnits()+1);
             userProduct.update();
         }
@@ -135,39 +101,6 @@ public class ProductListRepositoryImpl implements ProductListRepository {
 
     }
 
-    @Override
-    public void deleteProduct(User user, Product product) {
-
-        UserProduct userProduct = this.getProduct(user.getUserId(),product.getProductId());
-        if (userProduct != null){
-            userProduct.delete();
-        }
-        post(ProductListEvent.PRODUCT_DELETE_SUCCESS);
-
-    }
-
-
-    /**
-     * Recuperación de un producto en concreto para un usuario
-     * @param userId
-     * @param productId
-     * @return
-     */
-    private UserProduct getProduct(final String userId, final String productId){
-
-        UserProduct userProduct = null;
-
-        List<UserProduct> userProducts = new Select().from(UserProduct.class)
-                .where(UserProduct_Table.userId.eq(userId)
-                        ,UserProduct_Table.productId.eq(productId))
-                .queryList();
-
-        if (userProducts != null && (userProducts.size() > 0)){
-            userProduct = userProducts.get(0);
-        }
-
-        return userProduct;
-    }
 
     private void post(final int type){
         this.post(type,null);
@@ -177,9 +110,6 @@ public class ProductListRepositoryImpl implements ProductListRepository {
         this.post(type,null,msg);
     }
 
-    private void postProducts(final int type,final List<Product> products){
-        this.post(type,products,null);
-    }
 
     private void post(final List<Product> products){
         this.post(ProductListEvent.SUCCESS,products,null);

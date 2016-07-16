@@ -8,6 +8,10 @@ import com.product.shop.productshop.lib.EventBus;
 import com.product.shop.productshop.lib.ImageLoader;
 import com.product.shop.productshop.lib.impl.GlideImageLoader;
 import com.product.shop.productshop.lib.impl.GreenRobotEventBus;
+import com.product.shop.productshop.model.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Singleton;
 
@@ -60,5 +64,11 @@ public class LibsModule {
         return new GlideImageLoader(requestManager);
     }
 
+
+    @Singleton
+    @Provides
+    List<Product> providesProductList(){
+        return new ArrayList<Product>();
+    }
 
 }

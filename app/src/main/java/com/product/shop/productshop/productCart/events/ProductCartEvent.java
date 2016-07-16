@@ -1,4 +1,4 @@
-package com.product.shop.productshop.productList.events;
+package com.product.shop.productshop.productCart.events;
 
 import com.product.shop.productshop.model.Product;
 
@@ -7,12 +7,11 @@ import java.util.List;
 /**
  * Created by vtcmer on 12/07/2016.
  */
-public class ProductListEvent {
+public class ProductCartEvent {
 
-    public static final int SUCCESS = 0;
-    public static final int ERROR = 1;
-    public static final int PRODUCT_ADDED_SUCCESS = 2;
+    public static final int PRODUCT_SEARCH_SUCCESS = 4;
 
+    public static final int PRODUCT_DELETE_SUCCESS = 5;
 
     private int type;
     private String  msg;
