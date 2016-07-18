@@ -67,8 +67,10 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         holder.txtUnit.setText(String.valueOf(product.getUnits())+ " Unidades");
 
 
-        if(position%2==0) {
+        if(position%2==1) {
             holder.view.setBackgroundColor(Color.LTGRAY);
+        } else {
+            holder.view.setBackgroundColor(Color.WHITE);
         }
 
         holder.setupGestureDetector(product,context, onItemClickListenerProductCart);

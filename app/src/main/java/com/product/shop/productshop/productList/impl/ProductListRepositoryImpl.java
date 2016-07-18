@@ -55,7 +55,7 @@ public class ProductListRepositoryImpl extends ProductAbstractRepository impleme
                     if (results.getCount() > 0) {
                         for (Product product : results.getProducts()) {
 
-                            double price = new Random().nextInt(1000);
+                            double price = new Random().nextInt(100);
 
                             String format = new DecimalFormat("#.##").format(price);
 
